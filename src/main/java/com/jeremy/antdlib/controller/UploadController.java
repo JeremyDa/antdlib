@@ -27,6 +27,8 @@ public class UploadController {
   @PostMapping("/api/uploadFile")
   public Object uploadFile(@RequestParam("file") MultipartFile file)
       throws ExceptionCenter {
+
+// 保存文件返回参数
 //  {
 //        "id",id,
 //        "mc",fileName,
