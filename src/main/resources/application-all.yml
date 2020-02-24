@@ -1,0 +1,58 @@
+server:
+  port: 8020
+
+file:
+#  根据实际情况修改
+  uploadDir: /Users/Jeremy/tomcat7/webapps/antdlib/
+  url: http://localhost:8080/antdlib/
+
+# 后台服务是否需要鉴权 true:需要， false:不需要
+auth: false
+
+spring:
+
+  profiles: all
+
+  servlet:
+    multipart:  # spring boot 2.0使用以下配置
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 1024MB  # 上传一个文件最大值,默认1Mb
+      max-request-size: 1024MB  # 上传多个文件最大值,50Mb,默认10Mb
+
+  datasource:
+    #  根据实际情况修改
+    url: jdbc:mysql://ip:port/database?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&useSSL=false&serverTimezone=UTC
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    max-wait: 60000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 1 FROM DUAL
+    test-While-Idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: true
+    max-pool-prepared-statement-per-connection-size: 20
+    filters: stat,wall,log4j,config
+
+  mvc:
+    view:
+      suffix: .html
+
+    http:
+      encoding.charset: UTF-8
+      encoding.enable: true
+      encoding.force: true
+
+mybatis:
+  mapper-locations: classpath:/mapper/*/*.xml
+#    mapper-locations: file:mapper/*.xml
+logging:
+  config: classpath:logback-spring.xml

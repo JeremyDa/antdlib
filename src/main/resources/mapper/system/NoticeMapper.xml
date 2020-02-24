@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+  <update id="read" parameterType="map">
+    update notice
+    set `read` = true
+    where id = #{id} and account= #{account}
+  </update>
+
+  <update id="clear" parameterType="map">
+    update notice
+    set `read` = true
+    where type = #{type} and account = #{account}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="map" resultType="map">
+    select *
+    from notice
+    <where>
+      `read` = false and account = #{account}
+      <if test="id != null">
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="type != null">
+        and type = #{type}
+      </if>
+    </where>
+    ORDER BY type,id
+    <if test="total == null and type != null">
+      limit 5
+      <if test="offset != null">
+        offset #{offset}
+      </if>
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="map">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="datetime != null">
+        datetime,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="clickClose != null">
+        clickClose,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="extra != null">
+        extra,
+      </if>
+      <if test="read != null">
+        read,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null">
+        #{datetime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="clickClose != null">
+        #{clickClose},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="extra != null">
+        #{extra},
+      </if>
+      <if test="read != null">
+        #{read},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update notice
+    <set>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null">
+        datetime = #{datetime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="clickClose != null">
+        clickClose = #{clickClose},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="extra != null">
+        extra = #{extra},
+      </if>
+      <if test="read != null">
+        read = #{read},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

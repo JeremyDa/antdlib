@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+  <select id="login" parameterType="map" resultType="map">
+    select *
+    from user
+    where account = #{account} and password = #{password}
+  </select>
+
+  <select id="selectPasswordByUserid" parameterType="map" resultType="String">
+    select password
+    from user
+    where account= #{account}
+  </select>
+
+  <select id="checkPassword" parameterType="map" resultType="int">
+    select count(*) from user
+    where account = #{account} and password = #{password}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="map" resultType="map">
+    select
+    concat('',id) `key`,id,account,name,phone,avatar,levelid,roleid
+    from user
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="account != null and showAll == null">
+        AND account = #{account,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null">
+        and password = #{password}
+      </if>
+      <if test="roleid != null">
+        and roleid in (${roleid})
+      </if>
+      <if test="levelid != null">
+        AND levelid = #{levelid}
+      </if>
+    </where>
+    <if test="sort_key != null and sort_way != null">
+      order by ${sort_key} ${sort_way}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="map">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="acountRef != null">
+        account,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="levelid != null">
+        levelid,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="acountRef != null">
+        #{acountRef,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="levelid != null">
+        #{levelid},
+      </if>
+      <if test="phone != null">
+        #{phone},
+      </if>
+      <if test="avatar != null">
+        #{avatar},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update user
+    <set>
+      <if test="acountRef != null">
+        account = #{acountRef},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        roleid = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="levelid != null">
+        levelid = #{levelid},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="map">
+    update user
+    set account = #{acountRef,jdbcType=VARCHAR},
+      roleid = #{roleid,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="resetPassword" parameterType="map">
+    update user set password = default
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

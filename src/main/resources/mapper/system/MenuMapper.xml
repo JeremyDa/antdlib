@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+  <select id="selectByPrimaryKey" parameterType="map" resultType="map">
+    select
+    <if test="total != null">
+      COUNT(*) total
+    </if>
+    <if test="total == null">
+      id,id `key`, path, name, name title, icon, component, redirect, parentid
+    </if>
+    from menu
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER}
+      </if>
+    </where>
+    ORDER BY id
+  </select>
+
+  <select id="selectByRoleid" parameterType="map" resultType="map">
+    SELECT g.*,g.id as 'key'
+    FROM (
+      (
+        SELECT b.*
+        FROM rolemenu a LEFT JOIN menu b ON a.menuid = b.id
+        WHERE a.roleid = #{roleid} and b.isoper = 0
+        <if test="roleid != 0 and levelid != null">
+          and levelid = #{levelid}
+        </if>
+      )
+      UNION
+      (
+        SELECT d.*
+        FROM (
+          SELECT b.parentid
+          FROM rolemenu a LEFT JOIN menu b ON a.menuid = b.id
+          WHERE a.roleid = #{roleid} and b.isoper = 0
+          <if test="roleid != 0 and levelid != null">
+            and levelid = #{levelid}
+          </if>
+        ) c LEFT JOIN menu d ON c.parentid = d.id
+      )
+      UNION
+      (
+        SELECT f.*
+        FROM (
+          SELECT d.parentid
+          FROM (
+            SELECT b.parentid
+            FROM rolemenu a LEFT JOIN menu b ON a.menuid = b.id
+            WHERE a.roleid = #{roleid} and b.isoper = 0
+            <if test="roleid != 0 and levelid != null">
+              and levelid = #{levelid}
+            </if>
+          ) c LEFT JOIN menu d ON c.parentid = d.id
+        ) e LEFT JOIN menu f ON e.parentid = f.id
+      )
+    ) g
+    WHERE g.id IS NOT NULL
+    ORDER BY g.id
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="map">
+    insert into menu (id, path, name,
+      icon, component, redirect,
+      parentid, namezh)
+    values (#{id,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, #{redirect,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{namezh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="map">
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="component != null">
+        component,
+      </if>
+      <if test="redirect != null">
+        redirect,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="redirect != null">
+        #{redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update menu
+    <set>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="redirect != null">
+        redirect = #{redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="map">
+    update menu
+    set path = #{path,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      redirect = #{redirect,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

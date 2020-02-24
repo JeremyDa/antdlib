@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exception">
+  <select id="selectByPrimaryKey" parameterType="map" resultType="map">
+    select *
+    from exception
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from exception
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="map">
+    insert into exception (id, account, time, 
+      url, httpstatus, returnCode, 
+      returnMsg, stackTrace, param
+      )
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{httpstatus,jdbcType=VARCHAR}, #{returncode,jdbcType=VARCHAR}, 
+      #{returnmsg,jdbcType=LONGVARCHAR}, #{stacktrace,jdbcType=LONGVARCHAR}, #{param,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="map">
+    insert into exception
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="httpstatus != null">
+        httpstatus,
+      </if>
+      <if test="returncode != null">
+        returnCode,
+      </if>
+      <if test="returnmsg != null">
+        returnMsg,
+      </if>
+      <if test="stacktrace != null">
+        stackTrace,
+      </if>
+      <if test="param != null">
+        param,
+      </if>
+      <if test="levelid != null">
+        levelid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="httpstatus != null">
+        #{httpstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="returncode != null">
+        #{returncode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnmsg != null">
+        #{returnmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stacktrace != null">
+        #{stacktrace,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="param != null">
+        #{param,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="levelid != null">
+        #{levelid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update exception
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="httpstatus != null">
+        httpstatus = #{httpstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="returncode != null">
+        returnCode = #{returncode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnmsg != null">
+        returnMsg = #{returnmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stacktrace != null">
+        stackTrace = #{stacktrace,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="param != null">
+        param = #{param,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="map">
+    update exception
+    set account = #{account,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      httpstatus = #{httpstatus,jdbcType=VARCHAR},
+      returnCode = #{returncode,jdbcType=VARCHAR},
+      returnMsg = #{returnmsg,jdbcType=LONGVARCHAR},
+      stackTrace = #{stacktrace,jdbcType=LONGVARCHAR},
+      param = #{param,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="map">
+    update exception
+    set account = #{account,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      httpstatus = #{httpstatus,jdbcType=VARCHAR},
+      returnCode = #{returncode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
