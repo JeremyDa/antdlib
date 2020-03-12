@@ -1,8 +1,0 @@
-0.安装maven，配置环境变量
-
-1.命令行下执行:
-
-cd antdlib/lib/
-
-mvn install:install-file -Dfile=insanity-3.0.jar -DgroupId=com.jeremy -DartifactId=insanity -Dversion=3.0 -Dpackaging=jar
-
