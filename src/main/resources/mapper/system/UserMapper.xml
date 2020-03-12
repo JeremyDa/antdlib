@@ -2,6 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 
+  <insert id="insertBatch" parameterType="map">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userList != null">
+        avatar,
+      </if>
+      <if test="userList != null">
+        phone,
+      </if>
+      <if test="userList != null">
+        state,
+      </if>
+    </trim>
+    values
+    <foreach collection="userList" item="item" index="index" separator="," >
+      <trim prefix=" (" suffix=")" suffixOverrides=",">
+        <if test="item != null">
+          #{item.avatar},
+        </if>
+        <if test="item != null">
+          #{item.phone},
+        </if>
+        <if test="item != null">
+          #{item.state},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
   <select id="login" parameterType="map" resultType="map">
     select *
     from user
