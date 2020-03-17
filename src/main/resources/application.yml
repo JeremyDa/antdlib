@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: all
+    active: test
   config:
 #    location: file:application.yml
 

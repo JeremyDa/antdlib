@@ -2,6 +2,7 @@ package com.jeremy.antdlib.login;
 
 import com.jeremy.core.exception.ExceptionCenter;
 import com.jeremy.core.service.FirstService;
+import com.jeremy.core.util.ParamUtil;
 import com.jeremy.core.util.TokenUtil;
 import com.jeremy.menu.MenuService;
 import java.util.HashMap;
@@ -44,6 +45,11 @@ public class Login {
     userMap.put("unreadCount",noticeList.size());
     return userMap;
 
+  }
+
+  @RequestMapping(value = "/version.newest")
+  public Object newest(@RequestBody Map<String, Object> paramMap) {
+    return ParamUtil.arrayToMap(null,"newest",firstService.selectOne("version","newest"));
   }
 
   @RequestMapping(value = "/login.account")

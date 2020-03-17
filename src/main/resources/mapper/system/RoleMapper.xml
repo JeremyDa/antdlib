@@ -29,6 +29,9 @@
       <if test="levelid != null">
         and levelid = #{levelid}
       </if>
+      <if test="roleid != null">
+        and a.roleid = #{roleid}
+      </if>
     </where>
   </select>
 

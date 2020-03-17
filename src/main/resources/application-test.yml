@@ -11,7 +11,7 @@ auth: false
 
 spring:
 
-  profiles: all
+  profiles: test
 
   servlet:
     multipart:  # spring boot 2.0使用以下配置
@@ -53,6 +53,5 @@ spring:
 
 mybatis:
   mapper-locations: classpath:/mapper/*/*.xml
-#    mapper-locations: file:mapper/*.xml
 logging:
   config: classpath:logback-spring.xml
