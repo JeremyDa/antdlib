@@ -73,6 +73,12 @@
       <if test="read != null">
         read,
       </if>
+      <if test="from != null">
+        from,
+      </if>
+      <if test="issend != null">
+        issend,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -105,6 +111,12 @@
       <if test="read != null">
         #{read},
       </if>
+      <if test="from != null">
+        #{from},
+      </if>
+      <if test="issend != null">
+        #{issend},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="map">
@@ -136,6 +148,12 @@
       </if>
       <if test="read != null">
         read = #{read},
+      </if>
+      <if test="from != null">
+        from = #{from},
+      </if>
+      <if test="issend != null">
+        issend = #{issend},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
