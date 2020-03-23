@@ -48,16 +48,6 @@
 <!--        <appender-ref ref="TIME_FILE"/>-->
 <!--    </logger>-->
 
-<!--    <logger name="dev" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="employee" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="error_code" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="level" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="operation_2019_08_30" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="queue_2019_08_30" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="codes" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="tmenu" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="trole" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
-<!--    <logger name="trolemenu" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
 <!--    <logger name="user" level="all"><appender-ref ref="TIME_FILE"/></logger>-->
 
 </configuration>
