@@ -12,7 +12,7 @@ auth: false
 
 spring:
 
-  profiles: prod
+  profiles: local
 
   servlet:
     multipart:  # spring boot 2.0使用以下配置
