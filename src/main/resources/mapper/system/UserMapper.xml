@@ -50,11 +50,12 @@
 
   <select id="selectByPrimaryKey" parameterType="map" resultType="map">
     select
-    concat('',id) `key`,id,account,name,phone,avatar,levelid,roleid
-    from user
+    concat('',a.id) `key`,a.id, a.account, a.name, a.roleid, a.state, a.levelid, a.phone, a.avatar
+    from user a
+    left join role b on a.roleid = b.id
     <where>
       <if test="id != null">
-        id = #{id,jdbcType=INTEGER}
+        a.id = #{id,jdbcType=INTEGER}
       </if>
       <if test="account != null and showAll == null">
         AND account = #{account,jdbcType=VARCHAR}
@@ -68,16 +69,75 @@
       <if test="levelid != null">
         AND levelid = #{levelid}
       </if>
+      <if test="projectid != null">
+        AND b.projectid = #{projectid}
+      </if>
     </where>
     <if test="sort_key != null and sort_way != null">
       order by ${sort_key} ${sort_way}
     </if>
   </select>
+
+  <select id="selectRoleidByProjectid" parameterType="map" resultType="map">
+    select a.roleid,b.account
+    from roleuser a
+    left join user b on a.userid = b.id
+    left join role c on a.roleid = c.id
+    where c.projectid = #{projectid} and a.userid = #{userid}
+    order by a.roleid
+  </select>
+
+  <select id="selectBatch" parameterType="map" resultType="map">
+    select
+    concat('',a.id) `key`,a.id, a.account, a.name, a.state, a.levelid, a.phone, a.avatar,
+    b.roleid
+    from (
+      SELECT userid, group_concat(roleid) AS roleid
+      FROM (
+      SELECT c.*
+      FROM roleuser c
+      LEFT JOIN role d ON c.roleid = d.id
+      order by c.userid,c.roleid
+      ) b
+      GROUP BY b.userid
+    ) b
+    left join user a on a.id = b.userid
+    <where>
+      <if test="id != null">
+        a.id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="account != null and showAll == null">
+        AND account = #{account,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null">
+        and password = #{password}
+      </if>
+      <if test="roleid != null">
+        and roleid in (${roleid})
+      </if>
+      <if test="levelid != null">
+        AND levelid = #{levelid}
+      </if>
+      <if test="projectid != null">
+        and a.id in (
+          select distinct a.userid
+          from roleuser a
+          left join role b on a.roleid = b.id
+          where b.projectid = #{projectid}
+        )
+      </if>
+    </where>
+    <if test="sort_key != null and sort_way != null">
+      order by ${sort_key} ${sort_way}
+    </if>
+
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="map">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="map">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

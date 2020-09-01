@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project">
+
+  <select id="selectByPrimaryKey" parameterType="map" resultType="map">
+    select *
+    from project
+    order by id
+  </select>
+
+  <select id="selectProjectByUserid" parameterType="map" resultType="map">
+    select *
+    from project
+    <where>
+      pinyin in (
+        select c.projectid
+        from roleuser a
+        left join user b on a.userid = b.id
+        left join role c on a.roleid = c.id
+        where b.id = #{userid}
+      )
+    </where>
+    order by id
+
+  </select>
+
+</mapper>

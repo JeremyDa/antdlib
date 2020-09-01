@@ -14,6 +14,9 @@
       <if test="id != null">
         id = #{id,jdbcType=INTEGER}
       </if>
+      <if test="projectid != null">
+        and (projectid = #{projectid} or projectid is null)
+      </if>
     </where>
     ORDER BY id
   </select>

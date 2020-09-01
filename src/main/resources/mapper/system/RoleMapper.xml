@@ -8,6 +8,26 @@
     where roleid = #{roleid} and b.isoper = 1 and b.id like concat(#{menuid},'%')
   </select>
 
+  <select id="selectWithProject" parameterType="map" resultType="map">
+    select a.id,a.`desc`,a.levelid,concat(b.name,'-',a.name) name,a.projectid
+    from role a
+    left join project b on a.projectid = b.pinyin
+    <where>
+      <if test="id != null">
+        a.id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="levelid != null">
+        and levelid = #{levelid}
+      </if>
+      <if test="roleid != null">
+        and a.roleid = #{roleid}
+      </if>
+      <if test="projectid != null">
+        and a.projectid = #{projectid}
+      </if>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="map" resultType="map">
     SELECT *
     FROM role a
@@ -31,6 +51,9 @@
       </if>
       <if test="roleid != null">
         and a.roleid = #{roleid}
+      </if>
+      <if test="projectid != null">
+        and a.projectid = #{projectid}
       </if>
     </where>
   </select>
@@ -62,6 +85,9 @@
       <if test="levelid != null">
         levelid,
       </if>
+      <if test="projectid != null">
+        projectid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -72,6 +98,9 @@
       </if>
       <if test="levelid != null">
         #{levelid},
+      </if>
+      <if test="projectid != null">
+        #{projectid},
       </if>
     </trim>
   </insert>
@@ -86,6 +115,9 @@
       </if>
       <if test="levelid != null">
         levelid = #{levelid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectid != null">
+        projectid = #{projectid},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
