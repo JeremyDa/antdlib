@@ -25,7 +25,7 @@
     <dependency>
       <groupId>com.github.jeremyda</groupId>
       <artifactId>insanity</artifactId>
-      <version>3.0.2</version>
+      <version>3.0.14</version>
     </dependency>
 
     <dependency>
@@ -60,14 +60,6 @@
       <artifactId>easyexcel</artifactId>
       <version>1.0.4</version>
     </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>compile</scope>
-    </dependency>
-
 
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
