@@ -6,6 +6,10 @@ file:
   uploadDir: /Users/Jeremy/tomcat7/webapps/antdlib/
   url: http://localhost:8080/antdlib/
 
+# 启动项目自动生成mapper文件，数据库建好以后，第一次启动时设置为true
+mapper:
+  generate: false
+
 # 后台服务是否需要鉴权 true:需要， false:不需要
 auth: false
 
