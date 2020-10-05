@@ -38,7 +38,10 @@ public class ApiService {
 
     list = firstService.selectList(namespace,sqlid,"id",123);
 
-    list = firstService.selectList(namespace,sqlid, paramMap, "id",123, "age",12, "level", "A");
+    list = firstService.selectList(namespace,sqlid, paramMap,
+        "id",123,
+        "age",12,
+        "level", "A");
 
 
     // 通用的执行sql ，
@@ -55,7 +58,7 @@ public class ApiService {
 //    pageSize: 20
 
     // 通用的执行sql，如果查询结果的list长度不等于1，抛错提示报错信息
-    obj = firstService.excuteSqlCheck(namespace,sqlid, 1,"报错信息",paramMap, "id",123);
+    obj = firstService.excuteSqlCheck(namespace,sqlid, 1,"560","报错信息",paramMap, "id",123);
 
     return ;
   }

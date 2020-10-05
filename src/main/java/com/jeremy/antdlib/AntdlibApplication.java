@@ -10,7 +10,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @SpringBootApplication
 @EnableScheduling
 @EnableWebSocket
-@ComponentScan(basePackages={"com.jeremy"})
+@ComponentScan(basePackages={"com"})
 public class AntdlibApplication {
 
   @Value("${spring.profiles.active}")

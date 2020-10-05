@@ -30,7 +30,7 @@ spring:
     url: jdbc:mysql://ip:port/database?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&useSSL=false&serverTimezone=UTC
     username: root
     password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
     initial-size: 1

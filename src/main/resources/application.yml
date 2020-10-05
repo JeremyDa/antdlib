@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test  #local:本地，test:测试，prod:生产
+    active: local  #local:本地，test:测试，prod:生产
   config:
 #    location: file:application.yml
 
