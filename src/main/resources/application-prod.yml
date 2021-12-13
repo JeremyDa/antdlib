@@ -2,8 +2,9 @@ server:
   port: 8020
 
 file:
-#  根据实际情况修改
+# 服务器资源文件存放路径 根据实际情况修改
   uploadDir: /Users/Jeremy/tomcat7/webapps/antdlib/
+# 服务器资源访问路径
   url: http://localhost:8080/antdlib/
 
 # 启动项目自动生成mapper文件，数据库建好以后，第一次启动时设置为true
@@ -29,7 +30,7 @@ spring:
     url: jdbc:mysql://ip:port/database?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&connectTimeout=60000&socketTimeout=60000&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false&useSSL=false&serverTimezone=UTC
     username: root
     password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
     initial-size: 1
