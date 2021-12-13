@@ -16,9 +16,6 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @ComponentScan(basePackages={"com.jeremy"})
 public class AntdlibApplication {
 
-  @Value("${spring.profiles.active}")
-  private static String profiles;
-
   public static void main(String[] args) {
     SpringApplication.run(AntdlibApplication.class, args);
   }
