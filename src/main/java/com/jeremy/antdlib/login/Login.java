@@ -42,7 +42,7 @@ public class Login {
     }
     List<Map> noticeList = firstService.selectList("notice","selectByPrimaryKey",null,"account",paramMap.get("account"),"total",true);
 
-    List<Map> list = (List) firstService.excuteSqlCheck("user","selectByPrimaryKey",1,"请重新登录",null,"account", (String) paramMap.get("account"));
+    List<Map> list = (List) firstService.excuteSqlCheck("user","selectByPrimaryKey",1,"请重新登录",null,"accountRef", (String) paramMap.get("account"));
 
     Map userMap = list.get(0);
     userMap.put("unreadCount",noticeList.size());

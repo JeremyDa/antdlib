@@ -1,0 +1,57 @@
+server:
+  port: 8021
+
+file:
+# 服务器资源文件存放路径 根据实际情况修改
+  uploadDir: D:/Program Files (x86)/Apache Software Foundation/Tomcat 7.0/webapps/antdlib/
+# 服务器资源访问路径
+  url: http://localhost:8080/antdlib/
+
+# 启动项目自动生成mapper文件，数据库建好以后，第一次启动时设置为true
+mapper:
+  generate: false
+
+# 后台服务是否需要鉴权 true:需要， false:不需要
+auth: false
+
+spring:
+
+  profiles: h2
+
+  servlet:
+    multipart:  # spring boot 2.0使用以下配置
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 1024MB  # 上传一个文件最大值,默认1Mb
+      max-request-size: 1024MB  # 上传多个文件最大值,50Mb,默认10Mb
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    schema: classpath:database/antdlib-table.sql #，每次启动程序，程序都会运行schema.sql文件，对数据库的数据操作
+    data: classpath:database/antdlib-data.sql #，每次启动程序，程序都会运行data.sql文件，对数据库的数据操作
+    url: jdbc:h2:~/antdlib-h2;MODE=MYSQL;DATABASE_TO_LOWER=TRUE #配置h2数据库的连接地址
+
+#    jdbc:h2:[file:][<path>]<databaseName>
+#    jdbc:h2:~/test
+#    jdbc:h2:file:/data/sample
+#    jdbc:h2:file:C:/data/sample (Windows only)
+
+    username: sa
+    password: sa
+  h2:
+    console:
+      enabled: true #开启web console功能
+
+  mvc:
+    view:
+      suffix: .html
+
+    http:
+      encoding.charset: UTF-8
+      encoding.enable: true
+      encoding.force: true
+
+mybatis:
+  mapper-locations: classpath:/mapper/*/*.xml
+logging:
+  config: classpath:logback-spring.xml

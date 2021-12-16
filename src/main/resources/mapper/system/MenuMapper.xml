@@ -22,7 +22,7 @@
   </select>
 
   <select id="selectByRoleid" parameterType="map" resultType="map">
-    SELECT g.*,g.id as 'key'
+    SELECT g.*,g.id as `key`
     FROM (
       (
         SELECT b.*
